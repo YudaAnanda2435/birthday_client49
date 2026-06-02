@@ -94,7 +94,7 @@
         />
         <img src="./src/assets/img/hat.svg" alt="hat" class="hat" />
         <div class="wish">
-          <h3 class="wish-hbd">Happy Birthday! Ratih</h3>
+          <h3 class="wish-hbd">Happy Birthday! <br/> Ratih</h3>
           <h5 id="wishText">
             semoga semua hal yang adek ingin capai terwujud yaa sayangg, It's
             your birthday pretyyy🎈.
@@ -220,11 +220,23 @@
 
       textBoxChars.innerHTML = `<span>${textBoxChars.innerHTML
         .split("")
-        .join("</span><span>")}</span`;
+        .join("</span><span>")}</span>`;
 
-      hbd.innerHTML = `<span>${hbd.innerHTML
-        .split("")
-        .join("</span><span>")}</span`;
+      const hbdFragment = document.createDocumentFragment();
+      hbd.childNodes.forEach((node) => {
+        if (node.nodeName === "BR") {
+          hbdFragment.appendChild(document.createElement("br"));
+          return;
+        }
+
+        node.textContent.split("").forEach((char) => {
+          const span = document.createElement("span");
+          span.textContent = char;
+          hbdFragment.appendChild(span);
+        });
+      });
+      hbd.innerHTML = "";
+      hbd.appendChild(hbdFragment);
 
       const ideaTextTrans = {
         opacity: 0,
